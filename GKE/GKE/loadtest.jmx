@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestPlan version="1.2" properties="5.0" jmeter="5.4.1">
+  <HashTree>
+    <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+      <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+      <elementProp name="ThreadGroup.main_controller" elementType="LoopController">
+        <boolProp name="LoopController.continue_forever">false</boolProp>
+        <intProp name="LoopController.loops">10</intProp>
+      </elementProp>
+      <intProp name="ThreadGroup.num_threads">100</intProp> <!-- Số lượng users -->
+      <intProp name="ThreadGroup.ramp_time">30</intProp> <!-- Thời gian ramp-up -->
+      <longProp name="ThreadGroup.start_time">1609459200000</longProp>
+      <longProp name="ThreadGroup.end_time">1609462800000</longProp>
+      <boolProp name="ThreadGroup.scheduler">false</boolProp>
+      <elementProp name="ThreadGroup.threads" elementType="Thread">
+        <intProp name="Thread.num_threads">100</intProp>
+        <intProp name="Thread.ramp_up">30</intProp>
+      </elementProp>
+    </ThreadGroup>
+    <HashTree>
+      <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+        <stringProp name="HTTPSampler.domain">your-k8s-app-ip</stringProp> <!-- Địa chỉ IP của app hoặc LoadBalancer URL -->
+        <stringProp name="HTTPSampler.port">80</stringProp> <!-- Port mà service đang lắng nghe -->
+        <stringProp name="HTTPSampler.protocol">http</stringProp>
+        <stringProp name="HTTPSampler.path">/</stringProp> <!-- Đường dẫn ứng dụng -->
+        <stringProp name="HTTPSampler.method">GET</stringProp>
+        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+        <intProp name="HTTPSampler.connect_timeout">10000</intProp>
+        <intProp name="HTTPSampler.response_timeout">10000</intProp>
+      </HTTPSamplerProxy>
+      <HashTree/>
+    </HashTree>
+    <HashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+        <stringProp name="filename">results.jtl</stringProp>
+      </ResultCollector>
+      <HashTree/>
+    </HashTree>
+  </HashTree>
+</TestPlan>
